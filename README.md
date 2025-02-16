@@ -21,3 +21,33 @@ Do
     $Count++
 }
 While ($Count -lt 11)
+
+La tâche que j'ai faite est la suivante:
+
+Mettre les fichiers avec un numéro pair dans un dossier c:\EvenFolder
+Mettre les fichiers avec un numéro impair dans un dossier c:\OddFolder
+
+```powershell
+# Définir les dossiers de destination
+$evenFolder = "C:\EvenFolder"
+$oddFolder = "C:\OddFolder"
+
+# Créer les dossiers s'ils n'existent pas
+New-Item -ItemType Directory -Path $evenFolder -Force
+New-Item -ItemType Directory -Path $oddFolder -Force
+
+# Déplacer les fichiers selon leur numéro
+$allFiles = Get-ChildItem -Path C:\FolderTest1, C:\FolderTest2 -File
+
+foreach ($file in $allFiles) {
+    if ($file.Name -match "File(\d+)") {
+        $num = [int]$matches[1]
+        if ($num % 2 -eq 0) {
+            Move-Item -Path $file.FullName -Destination $evenFolder -Force
+        } else {
+            Move-Item -Path $file.FullName -Destination $oddFolder -Force
+        }
+    }
+}
+
+Write-Output "Les fichiers ont été déplacés avec succès."
