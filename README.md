@@ -21,7 +21,7 @@ Do
     $Count++
 }
 While ($Count -lt 11)
-
+```
 La tâche que j'ai faite est la suivante:
 
 Mettre les fichiers avec un numéro pair dans un dossier c:\EvenFolder
